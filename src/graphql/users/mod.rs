@@ -1,30 +1,24 @@
+use super::Context;
 use juniper;
 use juniper_from_schema::graphql_schema_from_file;
 
 graphql_schema_from_file!("src/graphql/users/schema.gql");
 
-pub struct Context;
-impl juniper::Context for Context {}
-
 pub struct Query;
+
+pub struct User {
+  name: String,
+}
+
 impl QueryFields for Query {
-  fn field_hello_world(
+  fn field_current_user(
     &self,
     executor: &juniper::Executor<'_, Context>,
-    name: String,
   ) -> juniper::FieldResult<String> {
-    Ok(format!("Hello, {}!", name))
+    let user = User {
+      name: String::from("Ferris"),
+    };
+
+    Ok(format!("The current user is {}.", user.name))
   }
 }
-
-pub struct Mutation;
-impl MutationFields for Mutation {
-  fn field_noop(&self, executor: &juniper::Executor<'_, Context>) -> juniper::FieldResult<&bool> {
-    Ok(&true)
-  }
-}
-
-pub fn hello() {
-  println!("hello")
-}
-
