@@ -1,0 +1,12 @@
+type Post {
+  id: ID!
+
+  # The directive makes the return value `FieldResult<String>`
+  # rather than the default `FieldResult<&String>`
+  title: String! @juniper(ownership: "owned")
+  content: String! @juniper(ownership: "owned")
+}
+
+type Query {
+  latestPosts: Post! 
+}

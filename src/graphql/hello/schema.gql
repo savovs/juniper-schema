@@ -1,5 +1,0 @@
-type Query {
-  # The directive makes the return value `FieldResult<String>`
-  # rather than the default `FieldResult<&String>`
-  hello(name: String!): String! @juniper(ownership: "owned")
-}
